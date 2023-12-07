@@ -1,9 +1,9 @@
 load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
-load("@python_deps//:requirements.bzl", "all_whl_requirements")
+load("@python_deps//:requirements.bzl", "all_requirements", "all_whl_requirements")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
-#load("@rules_pyvenv//:venv.bzl", "py_venv")
+load("@rules_pyvenv//:venv.bzl", "py_venv")
 
 exports_files(
     [
@@ -55,11 +55,11 @@ compile_pip_requirements(
 )
 
 # Create virtual environment for using in IDEs
-# py_venv(
-#     name = "venv",
-#     venv_location = ".venv",
-#     deps = all_requirements,
-# )
+py_venv(
+    name = "venv",
+    venv_location = ".venv",
+    deps = all_requirements,
+)
 
 # This rule fetches the metadata for python packages we depend on. That data is
 # required for the gazelle_python_manifest rule to update our manifest file.
