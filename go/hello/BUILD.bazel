@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "hello_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/psalaberria002/rules_python_gazelle_repro/go/hello",
+    visibility = ["//visibility:private"],
+    deps = ["@com_cognitedata_bazel_snapshots//snapshots/go/pkg/models"],
+)
+
+go_binary(
+    name = "hello",
+    embed = [":hello_lib"],
+    visibility = ["//visibility:public"],
+)
